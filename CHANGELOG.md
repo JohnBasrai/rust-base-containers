@@ -2,19 +2,24 @@
 
 All notable changes to this project will be documented in this file.
 
----
-
 ## [v0.1.0] – 2025-05-08
 
 ### Added
-- `Dockerfile.dev`: Full Rust development environment (rustfmt, clippy, audit, Diesel CLI, Redis, Protobuf, WASM)
-- `Dockerfile.runtime`: Minimal runtime container with libpq5 for production use
-- `quickstart.sh`: Unified script to build, run, and test containers
-- `scripts/build-images.sh`: Build both dev and runtime containers at once
-- `scripts/push-to-ghcr.sh`: Manual GHCR publishing with `$GHCR_PAT`
-- `.editorconfig` and `.gitattributes` for cross-editor and cross-platform consistency
-- `docs/pushing-locally.md`: Guide for manual container pushes
+- Initial release of `rust-dev-tools` and `rust-runtime` containers.
+- `Dockerfile.dev` includes full Rust toolchain with:
+  - `clippy`, `rustfmt`, `cargo-audit`, `cargo-outdated`, Diesel CLI (PostgreSQL), Redis, and Protobuf tooling.
+- `Dockerfile.runtime` added for minimal deployment use with:
+  - `debian:bookworm-slim`
+  - `ca-certificates` only, intended for use by downstream Rust apps (e.g., `cr8s`).
+- `.dockerignore` now excludes dev artifacts and editor temp files.
+- Updated `README.md` with instructions and usage for both containers.
+- GitHub Actions CI badge and `ci.yml` workflow integrated.
 
 ### Changed
-- Updated to `rust:1.83-slim` to support latest versions of `diesel_cli` and `cargo-outdated`
-- Cleaned and clarified `README.md` for usage with downstream repos
+- `WORKDIR` for `dev` container now set to `/app` with non-root `dev` user, enabling volume mounts for local Rust projects.
+
+### Notes
+- These images are published to [ghcr.io](https://ghcr.io/johnbasrai):
+  - `ghcr.io/johnbasrai/rust-dev-tools:{dev,latest}`
+  - `ghcr.io/johnbasrai/rust-runtime:{2025.05,latest}`
+- `runtime` container not currently in use by downstream apps, but prepared for future multi-stage builds.
