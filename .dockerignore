@@ -6,3 +6,5 @@ target/
 *.swp
 *.rs.bk
 .DS_Store
+editorconfig
+gitattributes

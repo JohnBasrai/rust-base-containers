@@ -27,10 +27,17 @@ RUN cargo install diesel_cli --no-default-features --features postgres --locked 
     cargo install cargo-audit --locked && \
     cargo install cargo-outdated --locked
 
-# Create a non-root user (optional)
+# Create non-root user and home
 RUN useradd -m dev
-USER dev
-WORKDIR /home/dev
 
-# Default command
+# Create project directory with correct ownership
+RUN mkdir /app && chown dev:dev /app
+
+# Switch to dev user
+USER dev
+
+# Set default working directory for dev
+WORKDIR /app
+
+# Set default shell
 CMD [ "bash" ]

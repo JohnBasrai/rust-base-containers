@@ -2,6 +2,8 @@
 
 # rust-dev-tools
 
+![Build and Push](https://github.com/JohnBasrai/rust-dev-tools/actions/workflows/ci.yml/badge.svg)
+
 🛠️ Reusable Rust development container with support for formatting, linting, Diesel, PostgreSQL, Redis, Protobuf, and WASM. Designed for CI parity and local development across all JohnBasrai GitHub Rust projects.
 
 ---
@@ -53,6 +55,17 @@ This lets you:
 
 > 📌 Make sure the binary is built (e.g., via `cargo build --release`) before building the image.
 
+---
+
+## 🏃‍♂️ rust-runtime
+
+Minimal runtime container for Rust apps, used as a base image by downstream projects (e.g., `cr8s`). Includes only `ca-certificates` on top of `debian:bookworm-slim`.
+
+```Dockerfile
+FROM ghcr.io/johnbasrai/rust-runtime:latest
+COPY ./target/release/myapp /usr/local/bin/myapp
+CMD ["myapp"]
+```
 ---
 
 ## Usage

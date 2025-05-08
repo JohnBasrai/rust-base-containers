@@ -1,19 +1,11 @@
-# --- Stage 1: Build the Rust app
-FROM ghcr.io/johnbasrai/rust-dev-tools:dev AS builder
+FROM debian:bullseye-slim
 
-WORKDIR /build
-COPY . .
-RUN cargo build --release
+# Optional runtime deps — include only what you know you need
+RUN apt-get update && apt-get install -y \
+    ca-certificates \
+ && rm -rf /var/lib/apt/lists/*
 
-# --- Stage 2: Runtime container
-FROM debian:bookworm-slim
+# Downstream containers like cr8s will COPY the app binary and add their own layers
 
-RUN apt-get update && \
-    apt-get install -y libpq5 && \
-    apt-get clean && rm -rf /var/lib/apt/lists/*
-
-# This image does not include a baked-in app.
-# It is intended to be used as a base image by app-specific repos.
-
-WORKDIR /app
-CMD ["bash"]
+# Set default command (optional override)
+CMD ["/bin/bash"]
