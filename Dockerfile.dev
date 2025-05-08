@@ -23,9 +23,9 @@ RUN rustup component add clippy rustfmt
 RUN rustup target add wasm32-unknown-unknown
 
 # Install cargo tools
-RUN cargo install diesel_cli --no-default-features --features postgres --locked --release && \
-    cargo install cargo-audit --locked --release && \
-    cargo install cargo-outdated --locked --release
+RUN cargo install diesel_cli --no-default-features --features postgres --locked && \
+    cargo install cargo-audit --locked && \
+    cargo install cargo-outdated --locked
 
 # Create a non-root user (optional)
 RUN useradd -m dev
