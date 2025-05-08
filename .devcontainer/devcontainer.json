@@ -1,0 +1,6 @@
+{
+  "name": "Rust Dev Tools",
+  "image": "ghcr.io/johnbasrai/rust-dev-tools:latest",
+  "features": {},
+  "postCreateCommand": "cargo build"
+}

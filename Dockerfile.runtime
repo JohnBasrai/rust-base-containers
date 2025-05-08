@@ -1,0 +1,13 @@
+# Dockerfile.runtime
+FROM debian:bookworm-slim
+
+# Add only runtime dependencies (PostgreSQL client lib if needed)
+RUN apt-get update && \
+    apt-get install -y libpq5 && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# Expect a binary named `app` to be copied in multi-stage use
+COPY app /usr/local/bin/app
+
+WORKDIR /app
+CMD ["app"]
