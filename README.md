@@ -1,6 +1,10 @@
+<!-- -*- mode: markdown -*- -->
+
 # rust-dev-tools
 
 🛠️ Reusable Rust development container with support for formatting, linting, Diesel, PostgreSQL, Redis, Protobuf, and WASM. Designed for CI parity and local development across all JohnBasrai GitHub Rust projects.
+
+---
 
 ## Features
 
@@ -12,6 +16,45 @@
 - 🌐 WASM support via `wasm32-unknown-unknown` target
 - ⚙️ Optimized for use in GitHub Actions, Docker Compose, or VS Code Dev Containers
 
+---
+
+## Container Variants
+
+This project builds and publishes two containers:
+
+- **`dev`**: Full-featured development environment with Rust, clippy, rustfmt, cargo-audit, Diesel CLI, Protobuf, and more. Use this for CI, development, and testing.
+- **`runtime`**: Minimal runtime container with only the `libpq5` dependency and a pre-built binary. Use this for production or Docker Compose targets.
+
+Both containers are published to:
+`ghcr.io/johnbasrai/rust-dev-tools`
+
+---
+
+### 🧩 Using the Runtime Container in Your App Repos (e.g. `cr8s`)
+
+If you're using `rust-dev-tools:runtime` as a base image in another Rust project like `cr8s`, you can extend it in your app's `Dockerfile` like so:
+
+```Dockerfile
+# Dockerfile in cr8s/
+FROM ghcr.io/johnbasrai/rust-dev-tools:runtime
+
+# Copy in your compiled binary
+COPY target/release/cr8s /usr/local/bin/app
+
+# Set the default command (optional if already set)
+CMD ["app"]
+```
+
+This lets you:
+
+* Avoid duplicating runtime dependencies like `libpq5`
+* Keep build and runtime containers cleanly separated
+* Build in CI with `rust-dev-tools:dev`, and run with `runtime`
+
+> 📌 Make sure the binary is built (e.g., via `cargo build --release`) before building the image.
+
+---
+
 ## Usage
 
 ### Docker
@@ -21,16 +64,24 @@
 git clone https://github.com/JohnBasrai/rust-dev-tools.git
 cd rust-dev-tools
 
-# Build the container
-docker build -t rust-dev-tools -f Dockerfile.dev .
-
-# Run with your local project mounted
-docker run --rm -it -v $(pwd)/../your-project:/app -w /app rust-dev-tools bash
+# Build and run the dev container using scripts
+./quickstart.sh build dev        # Build dev container only
+./quickstart.sh shell            # Launch interactive shell
+./quickstart.sh check            # Run fmt, clippy, and tests
 ```
+
+---
 
 ## Advanced Usage
 
 For instructions on manually pushing containers to GHCR, see [docs/pushing-locally.md](docs/pushing-locally.md).
+
+```bash
+# Build both dev and runtime containers at once
+./scripts/build-images.sh
+```
+
+---
 
 ## License
 

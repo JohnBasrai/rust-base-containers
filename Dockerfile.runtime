@@ -1,13 +1,19 @@
-# Dockerfile.runtime
+# --- Stage 1: Build the Rust app
+FROM ghcr.io/johnbasrai/rust-dev-tools:dev AS builder
+
+WORKDIR /build
+COPY . .
+RUN cargo build --release
+
+# --- Stage 2: Runtime container
 FROM debian:bookworm-slim
 
-# Add only runtime dependencies (PostgreSQL client lib if needed)
 RUN apt-get update && \
     apt-get install -y libpq5 && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Expect a binary named `app` to be copied in multi-stage use
-COPY app /usr/local/bin/app
+# This image does not include a baked-in app.
+# It is intended to be used as a base image by app-specific repos.
 
 WORKDIR /app
-CMD ["app"]
+CMD ["bash"]
