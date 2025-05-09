@@ -34,6 +34,13 @@ jobs:
             --cache-to=type=gha,mode=max \
             --push .
 
+      - name: 🔑 Login to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
       - name: 📦 Build and Push Runtime Container
         run: |
           touch app && chmod +x app
