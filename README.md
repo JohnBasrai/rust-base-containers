@@ -1,8 +1,8 @@
 <!-- -*- mode: markdown -*- -->
 
-# rust-dev-tools
+# rust-base-containers
 
-![Build and Push](https://github.com/JohnBasrai/rust-dev-tools/actions/workflows/ci.yml/badge.svg)
+![Build and Push](https://github.com/JohnBasrai/rust-base-containers/actions/workflows/ci.yml/badge.svg)
 
 🛠️ Reusable Rust development container with support for formatting, linting, Diesel, PostgreSQL, Redis, Protobuf, and WASM. Designed for CI parity and local development across all JohnBasrai GitHub Rust projects.
 
@@ -28,17 +28,17 @@ This project builds and publishes two containers:
 - **`runtime`**: Minimal runtime container with only the `libpq5` dependency and a pre-built binary. Use this for production or Docker Compose targets.
 
 Both containers are published to:
-`ghcr.io/johnbasrai/rust-dev-tools`
+`ghcr.io/johnbasrai/rust-base-containers`
 
 ---
 
 ### 🧩 Using the Runtime Container in Your App Repos (e.g. `cr8s`)
 
-If you're using `rust-dev-tools:runtime` as a base image in another Rust project like `cr8s`, you can extend it in your app's `Dockerfile` like so:
+If you're using `rust-runtime` as a base image in another Rust project like `cr8s`, you can extend it in your app's `Dockerfile` like so:
 
 ```Dockerfile
 # Dockerfile in cr8s/
-FROM ghcr.io/johnbasrai/rust-dev-tools:runtime
+FROM ghcr.io/johnbasrai/rust-runtime:latest
 
 # Copy in your compiled binary
 COPY target/release/cr8s /usr/local/bin/app
@@ -51,7 +51,8 @@ This lets you:
 
 * Avoid duplicating runtime dependencies like `libpq5`
 * Keep build and runtime containers cleanly separated
-* Build in CI with `rust-dev-tools:dev`, and run with `runtime`
+* Build in CI with `ghcr.io/johnbasrai/rust-dev:latest`, and run with `ghcr.io/johnbasrai/rust-runtime:latest`
+
 
 > 📌 Make sure the binary is built (e.g., via `cargo build --release`) before building the image.
 
@@ -74,8 +75,8 @@ CMD ["myapp"]
 
 ```bash
 # Clone this repo
-git clone https://github.com/JohnBasrai/rust-dev-tools.git
-cd rust-dev-tools
+git clone https://github.com/JohnBasrai/rust-base-containers.git
+cd rust-base-containers
 
 # Build and run the dev container using scripts
 ./quickstart.sh build dev        # Build dev container only

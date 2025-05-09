@@ -31,17 +31,17 @@ jobs:
     - name: 🛠️ Build Dev Container
       run: |
         docker build -f Dockerfile.dev \
-          -t ghcr.io/johnbasrai/rust-dev-tools:dev .
+          -t ghcr.io/johnbasrai/rust-dev:latest .
 
     - name: 📦 Build Runtime Container
       run: |
         # Dummy app file if no multi-stage build is used yet
         touch app && chmod +x app
         docker build -f Dockerfile.runtime \
-          -t ghcr.io/johnbasrai/rust-dev-tools:runtime .
+          -t ghcr.io/johnbasrai/rust-runtime:latest .
 
     - name: 🚀 Push Dev Container to GHCR
-      run: docker push ghcr.io/johnbasrai/rust-dev-tools:dev
+      run: docker push ghcr.io/johnbasrai/rust-dev:latest
 
     - name: 🚀 Push Runtime Container to GHCR
-      run: docker push ghcr.io/johnbasrai/rust-dev-tools:runtime
+      run: docker push ghcr.io/johnbasrai/rust-runtime:latest

@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 ## [v0.1.0] – 2025-05-08
 
 ### Added
-- Initial release of `rust-dev-tools` and `rust-runtime` containers.
+- Initial release of `rust-dev` and `rust-runtime` containers.
 - `Dockerfile.dev` includes full Rust toolchain with:
   - `clippy`, `rustfmt`, `cargo-audit`, `cargo-outdated`, Diesel CLI (PostgreSQL), Redis, and Protobuf tooling.
 - `Dockerfile.runtime` added for minimal deployment use with:
@@ -20,6 +20,6 @@ All notable changes to this project will be documented in this file.
 
 ### Notes
 - These images are published to [ghcr.io](https://ghcr.io/johnbasrai):
-  - `ghcr.io/johnbasrai/rust-dev-tools:{dev,latest}`
-  - `ghcr.io/johnbasrai/rust-runtime:{2025.05,latest}`
+  - `ghcr.io/johnbasrai/rust-dev:latest`
+  - `ghcr.io/johnbasrai/rust-runtime:latest`
 - `runtime` container not currently in use by downstream apps, but prepared for future multi-stage builds.

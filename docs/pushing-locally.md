@@ -1,6 +1,6 @@
 # 🔧 Manually Pushing Docker Images to GHCR
 
-This guide explains how to manually push your locally built Docker containers to [GitHub Container Registry (GHCR)](https://ghcr.io). This is useful when testing changes to the `rust-dev-tools` container before the automated GitHub Actions workflow runs.
+This guide explains how to manually push your locally built Docker containers to [GitHub Container Registry (GHCR)](https://ghcr.io). This is useful when testing changes to the `rust-base-containers` container before the automated GitHub Actions workflow runs.
 
 ---
 
@@ -41,8 +41,8 @@ export GHCR_PAT=ghp_yourActualTokenHere
 
 This builds both:
 
-- `ghcr.io/johnbasrai/rust-dev-tools:dev`
-- `ghcr.io/johnbasrai/rust-dev-tools:runtime`
+- `ghcr.io/johnbasrai/rust-dev:latest`
+- `ghcr.io/johnbasrai/rust-runtime:latest`
 
 ---
 
@@ -81,5 +81,5 @@ This will:
 If you're not sure whether to push manually or wait for CI, use `docker pull` in another repo to see if the image tag you want already exists:
 
 ```bash
-docker pull ghcr.io/johnbasrai/rust-dev-tools:dev
+docker pull ghcr.io/johnbasrai/rust-dev:latest
 ```
