@@ -25,6 +25,13 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-buildx-
 
+      - name: 🔑 Login to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
       - name: 🛠️ Build and Push Dev Container
         run: |
           docker buildx build \
@@ -33,13 +40,6 @@ jobs:
             --cache-from=type=gha \
             --cache-to=type=gha,mode=max \
             --push .
-
-      - name: 🔑 Login to GHCR
-        uses: docker/login-action@v3
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: 📦 Build and Push Runtime Container
         run: |
