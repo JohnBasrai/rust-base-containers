@@ -69,34 +69,6 @@ CMD ["myapp"]
 ```
 ---
 
-## Usage
-
-### Docker
-
-```bash
-# Clone this repo
-git clone https://github.com/JohnBasrai/rust-base-containers.git
-cd rust-base-containers
-
-# Build and run the dev container using scripts
-./quickstart.sh build dev        # Build dev container only
-./quickstart.sh shell            # Launch interactive shell
-./quickstart.sh check            # Run fmt, clippy, and tests
-```
-
----
-
-## Advanced Usage
-
-For instructions on manually pushing containers to GHCR, see [docs/pushing-locally.md](docs/pushing-locally.md).
-
-```bash
-# Build both dev and runtime containers at once
-./scripts/build-images.sh
-```
-
----
-
 ## License
 
 [MIT](LICENSE)
