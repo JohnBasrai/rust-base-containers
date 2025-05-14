@@ -20,6 +20,6 @@ All notable changes to this project will be documented in this file.
 
 ### Notes
 - These images are published to [ghcr.io](https://ghcr.io/johnbasrai):
-  - `ghcr.io/johnbasrai/rust-dev:latest`
-  - `ghcr.io/johnbasrai/rust-runtime:latest`
+  - `ghcr.io/johnbasrai/cr8s/rust-dev:latest`
+  - `ghcr.io/johnbasrai/cr8s/rust-runtime:latest`
 - `runtime` container not currently in use by downstream apps, but prepared for future multi-stage builds.
