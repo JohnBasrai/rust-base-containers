@@ -40,7 +40,7 @@ jobs:
         run: |
           docker buildx build \
             --file Dockerfile.dev \
-            --tag ghcr.io/johnbasrai/cr8s/rust-dev:latest \
+            --tag ghcr.io/johnbasrai/cr8s/rust-dev:v1.83 \
             --cache-from=type=gha \
             --cache-to=type=gha,mode=max \
             --push .
@@ -50,7 +50,7 @@ jobs:
           touch app && chmod +x app
           docker buildx build \
             --file Dockerfile.runtime \
-            --tag ghcr.io/johnbasrai/cr8s/rust-runtime:latest \
+            --tag ghcr.io/johnbasrai/cr8s/rust-runtime:v1.83 \
             --cache-from=type=gha \
             --cache-to=type=gha,mode=max \
             --push .
