@@ -1,4 +1,5 @@
-FROM debian:bullseye-slim
+# Use debian:bullseye-slim from about  May 1 2025
+FROM debian@sha256:fdd75562fdcde1039c2480a1ea1cd2cf03b18b6e4cb551cabb03bde66ade8a5d
 
 # Optional runtime deps — include only what you know you need
 RUN apt-get update && apt-get install -y \

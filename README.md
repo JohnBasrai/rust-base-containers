@@ -1,10 +1,8 @@
-<!-- -*- mode: markdown -*- -->
-
 # rust-base-containers
 
 ![Build and Push](https://github.com/JohnBasrai/rust-base-containers/actions/workflows/ci.yml/badge.svg)
 
-🛠️ Reusable Rust development container with support for formatting, linting, Diesel, PostgreSQL, Redis, Protobuf, and WASM. Designed for CI parity and local development across all JohnBasrai GitHub Rust projects.
+🛠️ Reusable Rust development and runtime containers with support for formatting, linting, Diesel, PostgreSQL, Redis, Protobuf, and WASM. Designed for CI parity and local development across all JohnBasrai GitHub Rust projects.
 
 ---
 
@@ -16,59 +14,40 @@
 - 🔌 Redis support
 - 🧬 `protoc` and `prost-build` for gRPC / Protobuf workflows
 - 🌐 WASM support via `wasm32-unknown-unknown` target
-- ⚙️ Optimized for use in GitHub Actions, Docker Compose, or VS Code Dev Containers
+- ⚙️ Optimized for use in GitHub Actions, Docker Compose, and local dev with `start.sh`
 
 ---
 
 ## Container Variants
 
-This project builds and publishes two containers:
+This project builds and publishes two containers under `ghcr.io/johnbasrai/cr8s/`:
 
-- **`dev`**: Full-featured development environment with Rust, clippy, rustfmt, cargo-audit, Diesel CLI, Protobuf, and more. Use this for CI, development, and testing.
-- **`runtime`**: Minimal runtime container with only the `libpq5` dependency and a pre-built binary. Use this for production or Docker Compose targets.
+### `rust-dev`
+- Full-featured dev container for building, testing, and formatting
+- Based on `rust:1.83-slim`
+- Includes Diesel CLI, Redis tools, `cargo-audit`, `protobuf`, and `rustfmt`
+- Tagged as:  
+  - `ghcr.io/johnbasrai/cr8s/rust-dev:latest`  
+  - `ghcr.io/johnbasrai/cr8s/rust-dev:v1.83`
 
-Both containers are published to:
-`ghcr.io/johnbasrai/rust-base-containers`
+### `rust-runtime`
+- Minimal runtime container
+- Based on a pinned digest of `debian:bullseye-slim`
+- Installs only `ca-certificates`
+- Used to run statically linked Rust apps
+- Tagged as:  
+  - `ghcr.io/johnbasrai/cr8s/rust-runtime:latest`  
+  - `ghcr.io/johnbasrai/cr8s/rust-runtime:v0.3.0`
 
 ---
 
-### 🧩 Using the Runtime Container in Your App Repos (e.g. `cr8s`)
-
-If you're using `rust-runtime` as a base image in another Rust project like `cr8s`, you can extend it in your app's `Dockerfile` like so:
+## 🔁 Example: Using `rust-runtime` in cr8s
 
 ```Dockerfile
 # Dockerfile in cr8s/
-FROM ghcr.io/johnbasrai/rust-runtime:latest
+FROM ghcr.io/johnbasrai/cr8s/rust-runtime:v0.3.0
 
-# Copy in your compiled binary
-COPY target/release/cr8s /usr/local/bin/app
+# Copy your compiled binary
+COPY target/release/cr8s /usr/local/bin/cr8s
 
-# Set the default command (optional if already set)
-CMD ["app"]
-```
-
-This lets you:
-
-* Avoid duplicating runtime dependencies like `libpq5`
-* Keep build and runtime containers cleanly separated
-* Build in CI with `ghcr.io/johnbasrai/rust-dev:latest`, and run with `ghcr.io/johnbasrai/rust-runtime:latest`
-
-
-> 📌 Make sure the binary is built (e.g., via `cargo build --release`) before building the image.
-
----
-
-## 🏃‍♂️ rust-runtime
-
-Minimal runtime container for Rust apps, used as a base image by downstream projects (e.g., `cr8s`). Includes only `ca-certificates` on top of `debian:bookworm-slim`.
-
-```Dockerfile
-FROM ghcr.io/johnbasrai/rust-runtime:latest
-COPY ./target/release/myapp /usr/local/bin/myapp
-CMD ["myapp"]
-```
----
-
-## License
-
-[MIT](LICENSE)
+CMD ["cr8s"]
