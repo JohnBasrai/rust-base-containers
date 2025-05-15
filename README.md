@@ -2,7 +2,17 @@
 
 ![Build and Push](https://github.com/JohnBasrai/rust-base-containers/actions/workflows/ci.yml/badge.svg)
 
-🛠️ Reusable Rust development and runtime containers with support for formatting, linting, Diesel, PostgreSQL, Redis, Protobuf, and WASM. Designed for CI parity and local development across all JohnBasrai GitHub Rust projects.
+🛠️ Reusable Rust development and runtime containers with support for formatting, linting, Diesel, PostgreSQL, Redis, Protobuf, and WASM. Designed to ensure CI parity and streamlined local development across all JohnBasrai GitHub Rust projects.
+
+> ⚠️ These dependencies can extend build times by up 5 minutes or more if installed separately in each derived container. The `rust-dev` container saves this time by providing a pre-configured environment.
+
+---
+
+### 📌 Versioning Policy
+
+Container tags follow semantic versioning aligned to Rust toolchain releases.
+
+> ℹ️ For full details on tag format and branch naming conventions, see [CONTRIBUTING.md](CONTRIBUTING.md#branch-and-tagging-conventions).
 
 ---
 
