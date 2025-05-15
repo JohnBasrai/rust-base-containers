@@ -13,6 +13,7 @@ permissions:
 
 jobs:
   check:
+    name: 🧪 CI – Build and Push Containers
     runs-on: ubuntu-latest
     steps:
       - name: ⬇️ Checkout Code
@@ -48,7 +49,6 @@ jobs:
 
       - name: 📦 Build and Push Runtime Container
         run: |
-          touch app && chmod +x app
           docker buildx build \
             --file Dockerfile.runtime \
             --tag ghcr.io/johnbasrai/cr8s/rust-runtime:latest \
