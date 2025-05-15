@@ -24,3 +24,36 @@ For example:
 - `tooling-update-*` – new tools or infra additions
 
 These conventions help ensure traceability and clean semver alignment across container consumers.
+
+## 🐳 Updating Dockerfiles and Releasing New Container Versions
+
+If you change `Dockerfile.dev` or `Dockerfile.runtime`, follow these steps:
+
+1. **Choose a new version** using semantic versioning aligned with Rust:
+   - Use `vX.Y.Z` where `X.Y` tracks the Rust version (e.g. `1.83`)
+   - Bump `Z` for patch-level updates (e.g. adding packages like `libssl3`, updating the base image)
+   - For a full Rust version upgrade (e.g. `1.84`), start with `v1.84.0`
+   - You can find the current version in `.github/workflows/ci.yml`
+
+2. **Update the version tag** inside `.github/workflows/ci.yml`:
+   ```yaml
+   --tag ghcr.io/johnbasrai/cr8s/rust-runtime:v1.83.1
+   ```
+
+3. Commit your changes:
+
+> ```
+> git add Dockerfile.runtime
+> git commit -m "runtime: add <change summary> (v1.83.1)"
+> git tag v1.83.1
+> git push origin main --tags
+> ```
+
+4. CI will automatically build and push:
+
+- :v1.83.1 for reproducibility
+- :latest as the rolling tag
+
+✅ Keep commits clean and use changelogs if available.<br>
+✅ Don't edit CI unless you're changing how containers are built or tagged.
+

@@ -1,12 +1,21 @@
-# Use debian:bullseye-slim from about  May 1 2025
-FROM debian@sha256:fdd75562fdcde1039c2480a1ea1cd2cf03b18b6e4cb551cabb03bde66ade8a5d
+# Minimal runtime image for Rust Rocket/Diesel apps like cr8s
 
-# Optional runtime deps — include only what you know you need
+FROM debian:bookworm-slim
+
+# Install runtime libraries for Rocket, Diesel/Postgres, and TLS
 RUN apt-get update && apt-get install -y \
+    libssl3 \
+    libpq5 \
     ca-certificates \
  && rm -rf /var/lib/apt/lists/*
 
-# Downstream containers like cr8s will COPY the app binary and add their own layers
+# Set working directory for downstream use
+WORKDIR /app
 
-# Set default command (optional override)
-CMD ["/bin/bash"]
+# Create a non-root user for secure runtime
+RUN useradd -m appuser
+USER appuser
+
+# Downstream Dockerfiles will:
+# - COPY their binary to /app/
+# - Define ENTRYPOINT
