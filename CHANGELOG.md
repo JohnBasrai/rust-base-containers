@@ -2,7 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
-## [v0.1.0] – 2025-05-08
+## [v1.83.1] – 2025-05-15
+
+### Added
+- Added `libssl3` and `libpq5` to runtime container for Rocket + Diesel support
+- Upgraded base image from `debian:bullseye-slim` to `debian:bookworm-slim`
+- Added `appuser` non-root user for secure runtime execution
+
+## [v1.83.0] – 2025-05-08
 
 ### Added
 - Initial release of `rust-dev` and `rust-runtime` containers.
