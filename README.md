@@ -4,15 +4,19 @@
 
 🛠️ Reusable Rust development and runtime containers with support for formatting, linting, Diesel, PostgreSQL, Redis, Protobuf, and WASM. Designed to ensure CI parity and streamlined local development across all JohnBasrai GitHub Rust projects.
 
-> ⚠️ These dependencies can extend build times by up 5 minutes or more if installed separately in each derived container. The `rust-dev` container saves this time by providing a pre-configured environment.
+> ⚠️ Using the `rust-dev` container with dependencies preinstalled can reduce build times by up to 5 minutes or more vs using offical `rust:1.83-slim` base image.
 
 ---
 
-### 📌 Versioning Policy
+## 📌 Versioning Policy
 
-Container tags follow semantic versioning aligned to Rust toolchain releases.
+Container tags follow a two-track policy:
 
-> ℹ️ For full details on tag format and branch naming conventions, see [CONTRIBUTING.md](CONTRIBUTING.md#branch-and-tagging-conventions).
+- `rust-dev` uses `X.Y.0-revN` format, where `X.Y` matches the Rust toolchain version (e.g., `1.83.0-rev3`)
+- `rust-runtime` uses `A.B.C` format aligned with downstream consumer crate versions (e.g., `0.1.3` from `cr8s-fe`)
+
+> ❗ Tags do **not** use a `v` prefix.  
+> For full details, see [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ---
 
@@ -33,12 +37,11 @@ Container tags follow semantic versioning aligned to Rust toolchain releases.
 This project builds and publishes two containers under `ghcr.io/johnbasrai/cr8s/`:
 
 ### `rust-dev`
-- Full-featured dev container for building, testing, and formatting
-- Based on `rust:1.83-slim`
-- Includes Diesel CLI, Redis tools, `cargo-audit`, `protobuf`, and `rustfmt`
-- Tagged as:  
-  - `ghcr.io/johnbasrai/cr8s/rust-dev:latest`  
-  - `ghcr.io/johnbasrai/cr8s/rust-dev:v1.83`
+-- Full-featured dev container for building, testing, and formatting
+-- Based on `rust:1.83-slim`
+-- Includes Diesel CLI, Redis tools, `cargo-audit`, `protobuf`, and `rustfmt`
+-- Tagged as:  
+  - `ghcr.io/johnbasrai/cr8s/rust-dev:1.83.0-rev3`
 
 ### `rust-runtime`
 - Minimal runtime container
@@ -46,8 +49,7 @@ This project builds and publishes two containers under `ghcr.io/johnbasrai/cr8s/
 - Installs only `ca-certificates`
 - Used to run statically linked Rust apps
 - Tagged as:  
-  - `ghcr.io/johnbasrai/cr8s/rust-runtime:latest`  
-  - `ghcr.io/johnbasrai/cr8s/rust-runtime:v0.3.0`
+  - `ghcr.io/johnbasrai/cr8s/rust-runtime:0.1.3`
 
 ---
 
