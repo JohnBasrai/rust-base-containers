@@ -6,14 +6,20 @@ on:
   pull_request:
     branches: [ main ]
   workflow_dispatch:
+    inputs:
+      dev_version:
+        description: 'rust-dev version (e.g. 1.83.0-rev3)'
+        required: true
+      runtime_version:
+        description: 'rust-runtime version (e.g. 0.1.3)'
+        required: true
 
 permissions:
   contents: read
   packages: write
 
 jobs:
-  check:
-    name: 🧪 CI – Build and Push Containers
+  build-and-push:
     runs-on: ubuntu-latest
     steps:
       - name: ⬇️ Checkout Code
@@ -29,14 +35,6 @@ jobs:
           name: cr8s-builder
           use: true
 
-      # - name: 💾 Cache Docker layers
-      #   uses: actions/cache@v4
-      #   with:
-      #     path: /tmp/.buildx-cache
-      #     key: ${{ runner.os }}-buildx-${{ github.sha }}
-      #     restore-keys: |
-      #       ${{ runner.os }}-buildx-
-
       - name: 🔑 Login to GHCR
         uses: docker/login-action@v3
         with:
@@ -44,22 +42,16 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: 🛠️ Build and Push Dev Container
+      - name: 🛠️ Build and Push rust-dev
         run: |
           docker buildx build \
             --file Dockerfile.dev \
-            --tag ghcr.io/johnbasrai/cr8s/rust-dev:latest \
-            --tag ghcr.io/johnbasrai/cr8s/rust-dev:v1.83.1 \
-            --cache-from=type=gha \
-            --cache-to=type=gha,mode=max \
+            --tag ghcr.io/johnbasrai/cr8s/rust-dev:${{ github.event.inputs.dev_version }} \
             --push .
 
-      - name: 📦 Build and Push Runtime Container
+      - name: 📦 Build and Push rust-runtime
         run: |
           docker buildx build \
             --file Dockerfile.runtime \
-            --tag ghcr.io/johnbasrai/cr8s/rust-runtime:latest \
-            --tag ghcr.io/johnbasrai/cr8s/rust-runtime:v0.3.1 \
-            --cache-from=type=gha \
-            --cache-to=type=gha,mode=max \
+            --tag ghcr.io/johnbasrai/cr8s/rust-runtime:${{ github.event.inputs.runtime_version }} \
             --push .
