@@ -26,7 +26,11 @@ RUN rustup target add wasm32-unknown-unknown
 # Install cargo tools
 RUN cargo install diesel_cli --no-default-features --features postgres --locked && \
     cargo install cargo-audit --locked && \
-    cargo install cargo-outdated --locked
+    cargo install cargo-outdated --locked && \
+    cargo install cargo-machete --locked && \
+    cargo install cargo-deny --locked && \
+    cargo install wasm-bindgen-cli --locked && \
+    cargo install trunk --locked
 
 # Create non-root user and home
 RUN useradd -m dev
