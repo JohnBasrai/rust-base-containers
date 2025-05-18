@@ -51,6 +51,7 @@ We publish two container images:
   `fix/image-tag-policy-alignment`, `ci/version-tagging`, etc.
 - Releases should correspond to meaningful changes (e.g., base image realignment, CI updates)
 - GitHub Releases should document new image tags and any relevant policy updates
+- **Do not push images to GHCR manually.** All images must be published via the automated GitHub Actions workflow to ensure version integrity and policy compliance.
 
 ---
 
