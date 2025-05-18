@@ -36,7 +36,6 @@ jobs:
           driver-opts: image=moby/buildkit:latest
           buildkitd-flags: --debug
           driver: docker-container
-          name: cr8s-builder
           use: true
 
       - name: 🔑 Login to GHCR
