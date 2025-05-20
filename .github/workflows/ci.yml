@@ -51,24 +51,20 @@ jobs:
 
       - name: 📦 Build and Push rust-runtime
         run: |
-          env | grep -i gha
+          env | grep -i gha || echo "⚠️ No GitHub cache session detected"
           docker buildx build \
             --file Dockerfile.runtime \
             --tag ghcr.io/johnbasrai/cr8s/rust-runtime:${{ env.RUST_RUNTIME_VERSION }} \
-            --push \
-            --progress=plain \
-            --cache-from type=gha \
-            --cache-to type=gha \
+            --push --progress=plain \
+            $(env | grep -q GITHUB && echo "--cache-from type=gha --cache-to type=gha") \
             .
 
       - name: 🛠️ Build and Push rust-dev
         run: |
-          env | grep -i gha
+          env | grep -i gha || echo "⚠️ No GitHub cache session detected"
           docker buildx build \
             --file Dockerfile.dev \
             --tag ghcr.io/johnbasrai/cr8s/rust-dev:${{ env.RUST_DEV_VERSION }} \
-            --push \
-            --progress=plain \
-            --cache-from type=gha \
-            --cache-to type=gha \
+            --push --progress=plain \
+            $(env | grep -q GITHUB && echo "--cache-from type=gha --cache-to type=gha") \
             .
