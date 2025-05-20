@@ -2,7 +2,20 @@
 
 All notable changes to this project will be documented in this file.
 
-## [v1.83.1] – 2025-05-15
+## [v1.83.0-rev4] – 2025-05-19
+
+### Fixed
+- 🛠️ `chown /usr/local/cargo` so `dev` user can run cargo tools (`clippy`, `audit`, etc.)
+
+### Added
+- 🐳 Enable Docker `buildx` cache via `actions/cache@v4` in CI
+- 🧱 Use named builder `cr8s-builder` for reproducible CI builds
+
+### Docs
+- 🧾 Documented how Docker tags are defined and how to trace which commit built an image
+- 🔐 Added guidance on the `dev` user and permission requirements for `cargo` tooling
+
+## [v1.83.0-rev3] – 2025-05-15
 
 ### Added
 - Added `libssl3` and `libpq5` to runtime container for Rocket + Diesel support
