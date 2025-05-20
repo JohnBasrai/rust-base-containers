@@ -37,10 +37,10 @@ Container tags follow a two-track policy:
 This project builds and publishes two containers under `ghcr.io/johnbasrai/cr8s/`:
 
 ### `rust-dev`
--- Full-featured dev container for building, testing, and formatting
--- Based on `rust:1.83-slim`
--- Includes Diesel CLI, Redis tools, `cargo-audit`, `protobuf`, and `rustfmt`
--- Tagged as:  
+- Full-featured dev container for building, testing, and formatting
+- Based on `rust:1.83-slim`
+- Includes Diesel CLI, Redis tools, `cargo-audit`, `protobuf`, and `rustfmt`
+- Tagged as:  
   - `ghcr.io/johnbasrai/cr8s/rust-dev:1.83.0-rev3`
 
 ### `rust-runtime`

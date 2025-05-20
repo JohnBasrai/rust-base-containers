@@ -34,6 +34,9 @@ RUN cargo install diesel_cli --no-default-features --features postgres --locked 
 # Create non-root user and home
 RUN useradd -m dev
 
+# Fix permissions so dev user can run cargo tools like clippy, audit, etc.
+RUN chown -R dev:dev /usr/local/cargo
+
 # Create project directory with correct ownership
 RUN mkdir /app && chown dev:dev /app
 

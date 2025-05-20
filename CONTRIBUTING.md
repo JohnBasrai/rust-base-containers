@@ -35,6 +35,31 @@ We publish two container images:
 
 > Example: `rust-runtime:0.1.3` for `cr8s-fe@0.1.3`
 
+### 📍 Where Docker Tags Are Defined
+
+The `rust-dev` and `rust-runtime` image tags are **set explicitly** in the `ci.yml` workflow file:
+
+```yaml
+env:
+  RUST_DEV_VERSION:     1.83.0-rev3
+  RUST_RUNTIME_VERSION: 0.1.3
+```
+
+### 🔐 Dev User and Cargo Permissions
+
+The `rust-dev` container runs as a non-root user named `dev` (`UID=1000`) for compatibility with host bind mounts and to support container-safe linting and formatting.
+
+To ensure tools like `cargo clippy`, `cargo audit`, and `cargo fmt` work correctly inside the container:
+
+```dockerfile
+# Dockerfile.dev
+RUN chown -R dev:dev /usr/local/cargo
+```
+
+This grants the `dev` user full access to the Rust toolchain, registry, and cache directories, which are typically owned by the user in standard setups (`$HOME/.cargo`).
+
+> ⚠️ Omitting this step may result in `Permission denied` errors when running cargo tools inside the container.
+
 ---
 
 ## 2 🏷️ Tag Naming Rules
