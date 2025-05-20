@@ -40,7 +40,8 @@ jobs:
 
       - name: 🧱 Create and Use Named Buildx Builder
         run: |
-          BUILDER_NAME=cr8s-builder
+          BUILDER_NAME="${BUILDER_NAME:-${GITHUB_REPOSITORY#*/}-builder}"
+          echo "BUILDER_NAME=$BUILDER_NAME" >> $GITHUB_ENV
           docker buildx inspect "$BUILDER_NAME" > /dev/null 2>&1 || \
             docker buildx create --name "$BUILDER_NAME" --driver docker-container --use
           docker buildx use "$BUILDER_NAME"
@@ -56,7 +57,7 @@ jobs:
       - name: 🛠️ Build and Push rust-dev
         run: |
           docker buildx build \
-            --builder cr8s-builder \
+            --builder ${{ env.BUILDER_NAME }} \
             --file Dockerfile.dev \
             --tag ghcr.io/johnbasrai/cr8s/rust-dev:${{ env.RUST_DEV_VERSION }} \
             --push \
@@ -68,10 +69,10 @@ jobs:
       - name: 📦 Build and Push rust-runtime
         run: |
           docker buildx build \
-            --builder cr8s-builder \
+            --builder ${{ env.BUILDER_NAME }} \
             --file Dockerfile.runtime \
             --tag ghcr.io/johnbasrai/cr8s/rust-runtime:${{ env.RUST_RUNTIME_VERSION }} \
-            --push 
+            --push \
             --cache-from type=local,src=/tmp/.buildx-cache \
             --cache-to type=local,dest=/tmp/.buildx-cache \
             .

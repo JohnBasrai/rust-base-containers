@@ -45,6 +45,32 @@ env:
   RUST_RUNTIME_VERSION: 0.1.3
 ```
 
+### 🧱 Named Buildx Builder per Repo
+
+To avoid cache collisions between repositories using Docker Buildx, CI workflows should use a **repo-specific builder name**. This is especially important when enabling layer caching with `--cache-from` and `--cache-to`.
+
+Recommended pattern in `ci.yml`:
+
+```yaml
+- name: 🧱 Create and Use Named Buildx Builder
+  run: |
+    BUILDER_NAME="${BUILDER_NAME:-${GITHUB_REPOSITORY#*/}-builder}"
+    echo "BUILDER_NAME=$BUILDER_NAME" >> $GITHUB_ENV
+    docker buildx inspect "$BUILDER_NAME" > /dev/null 2>&1 || \
+      docker buildx create --name "$BUILDER_NAME" --driver docker-container --use
+    docker buildx use "$BUILDER_NAME"
+```
+
+Later steps reference the builder like this:
+
+```yaml
+--builder ${{ env.BUILDER_NAME }}
+```
+
+This ensures that each repository's CI jobs use isolated builder names, reducing cache contamination and improving reproducibility.
+
+---
+
 ### 🔐 Dev User and Cargo Permissions
 
 The `rust-dev` container runs as a non-root user named `dev` (`UID=1000`) for compatibility with host bind mounts and to support container-safe linting and formatting.
