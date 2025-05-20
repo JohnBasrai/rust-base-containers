@@ -1,10 +1,7 @@
-# Rust build output
-target/
+# Ignore everything by default
+*
 
-# VCS, editor cruft
-.git/
-*.swp
-*.rs.bk
-.DS_Store
-editorconfig
-gitattributes
+# Allow only files needed by Docker
+!Dockerfile.dev
+!Dockerfile.runtime
+!.github/
