@@ -34,6 +34,9 @@ RUN cargo install diesel_cli --no-default-features --features postgres --locked 
 # Create non-root user and home
 RUN useradd -m dev
 
+# Fix permissions so appuser can run lint tools
+RUN chown -R appuser:appuser /usr/local/cargo
+
 # Create project directory with correct ownership
 RUN mkdir /app && chown dev:dev /app
 
