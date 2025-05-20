@@ -36,6 +36,8 @@ jobs:
           use: true
           buildkitd-flags: --debug
           driver-opts: image=moby/buildkit:latest
+          cache-to: type=gha
+          cache-from: type=gha
 
       - name: Get sha256sum of repo.
         run: tar cf - . | sha256sum
@@ -49,6 +51,7 @@ jobs:
 
       - name: 📦 Build and Push rust-runtime
         run: |
+          env | grep -i gha
           docker buildx build \
             --file Dockerfile.runtime \
             --tag ghcr.io/johnbasrai/cr8s/rust-runtime:${{ env.RUST_RUNTIME_VERSION }} \
@@ -60,6 +63,7 @@ jobs:
 
       - name: 🛠️ Build and Push rust-dev
         run: |
+          env | grep -i gha
           docker buildx build \
             --file Dockerfile.dev \
             --tag ghcr.io/johnbasrai/cr8s/rust-dev:${{ env.RUST_DEV_VERSION }} \
