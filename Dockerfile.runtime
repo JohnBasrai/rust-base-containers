@@ -26,12 +26,18 @@ RUN apt-get update && apt-get install -y \
     vim-tiny \
  && rm -rf /var/lib/apt/lists/*
 
+RUN echo '⚠️  WARNING: This container includes debugging tools for demo purposes.\n' \
+    '⚠️  Not intended for production use. Harden before deploying.\n' \
+    > /etc/motd
+
 # Set working directory for downstream use
 WORKDIR /app
 
 # Create a non-root user for secure runtime
 RUN useradd -m appuser
 USER appuser
+
+CMD ["sh", "-c", "cat /etc/motd && ./your-app"]
 
 # Downstream Dockerfiles will:
 # - COPY their binary to /app/
