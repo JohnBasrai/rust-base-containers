@@ -1,12 +1,29 @@
-# Minimal runtime image for Rust Rocket/Diesel apps like cr8s
-
+# Runtime image for Rust Rocket/SQLx apps like cr8s  
 FROM debian:bookworm-slim
 
-# Install runtime libraries for Rocket, Diesel/Postgres, and TLS
+# Install runtime libraries for Rocket, SQLx/Postgres, and TLS
+# Plus debugging tools for connectivity troubleshooting
 RUN apt-get update && apt-get install -y \
     libssl3 \
     libpq5 \
     ca-certificates \
+    # Network debugging tools
+    curl \
+    wget \
+    netcat-openbsd \
+    iputils-ping \
+    dnsutils \
+    # Process and system debugging
+    procps \
+    htop \
+    # Redis debugging
+    redis-tools \
+    # PostgreSQL debugging  
+    postgresql-client \
+    # Text processing for log analysis
+    grep \
+    less \
+    vim-tiny \
  && rm -rf /var/lib/apt/lists/*
 
 # Set working directory for downstream use

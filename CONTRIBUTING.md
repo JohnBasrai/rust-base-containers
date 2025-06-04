@@ -82,10 +82,10 @@ This grants the `dev` user full access to the Rust toolchain, registry, and cach
 
 ## 4 ✅ Examples
 
-| Git Tag     | Image                           | Tag                     |
-|-------------|----------------------------------|--------------------------|
-| `v0.1.4`    | `rust-runtime` (for cr8s-fe)     | `rust-runtime:0.1.3`     |
-| `v0.1.4`    | `rust-dev` with Rust 1.83.0      | `rust-dev:1.83.0-rev3`   |
+| Git Tag      | Image                            | Tag                      |
+|------------- | -------------------------------- | -------------------------|
+| `2025.05.15` | `rust-runtime` (for cr8s-fe)     | `rust-runtime:0.1.3`     |
+| `2025.05.20` | `rust-dev` with Rust 1.83.0      | `rust-dev:1.83.0-rev5`   |
 
 ---
 
