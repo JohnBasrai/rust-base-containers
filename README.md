@@ -12,7 +12,7 @@
 
 Container tags follow a two-track policy:
 
-- `rust-dev` uses `X.Y.0-revN` format, where `X.Y` matches the Rust toolchain version (e.g., `1.83.0-rev3`)
+- `rust-dev` uses `X.Y.0-revN` format, where `X.Y` matches the Rust toolchain version (e.g., `1.83.0-rev5`)
 - `rust-runtime` uses `A.B.C` format aligned with downstream consumer crate versions (e.g., `0.1.3` from `cr8s-fe`)
 
 > ❗ Tags do **not** use a `v` prefix.  
@@ -57,7 +57,7 @@ This project builds and publishes two containers under `ghcr.io/johnbasrai/cr8s/
 
 ```Dockerfile
 # Dockerfile in cr8s/
-FROM ghcr.io/johnbasrai/cr8s/rust-runtime:v0.3.0
+FROM ghcr.io/johnbasrai/cr8s/rust-runtime:0.1.3
 
 # Copy your compiled binary
 COPY target/release/cr8s /usr/local/bin/cr8s
