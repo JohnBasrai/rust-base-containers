@@ -23,12 +23,12 @@ Container tags follow a two-track policy:
 ## Features
 
 - 🦀 Rust toolchain (with `clippy`, `rustfmt`)
-- 🧪 `cargo test`, `cargo audit`, and `cargo fmt` integration
-- 🗄️ Diesel CLI + PostgreSQL client libraries
+- 🧪 `cargo test`, `cargo audit`, cargo outdated, and `cargo fmt` integration
+- 🗄️ PostgreSQL cli + client libraries
 - 🔌 Redis support
 - 🧬 `protoc` and `prost-build` for gRPC / Protobuf workflows
 - 🌐 WASM support via `wasm32-unknown-unknown` target
-- ⚙️ Optimized for use in GitHub Actions, Docker Compose, and local dev with `start.sh`
+- ⚙️ Optimized for use in GitHub Actions, Docker Compose, and local dev
 
 ---
 
@@ -39,13 +39,13 @@ This project builds and publishes two containers under `ghcr.io/johnbasrai/cr8s/
 ### `rust-dev`
 - Full-featured dev container for building, testing, and formatting
 - Based on `rust:1.83-slim`
-- Includes Diesel CLI, Redis tools, `cargo-audit`, `protobuf`, and `rustfmt`
+- Includes Redis tools, `cargo-audit`, `protobuf`, and `rustfmt`
 - Tagged as:  
-  - `ghcr.io/johnbasrai/cr8s/rust-dev:1.83.0-rev3`
+  - `ghcr.io/johnbasrai/cr8s/rust-dev:1.83.0-rev5`
 
 ### `rust-runtime`
 - Minimal runtime container
-- Based on a pinned digest of `debian:bullseye-slim`
+- Based on a pinned digest of `debian:bookworm-slim`
 - Installs only `ca-certificates`
 - Used to run statically linked Rust apps
 - Tagged as:  
