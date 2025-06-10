@@ -24,7 +24,7 @@ RUN rustup component add clippy rustfmt
 RUN rustup target add wasm32-unknown-unknown
 
 # Install cargo tools
-RUN cargo install diesel_cli --no-default-features --features postgres --locked && \
+RUN cargo install sqlx-cli --no-default-features --features postgres --locked && \
     cargo install cargo-audit --locked && \
     cargo install cargo-outdated --locked && \
     cargo install cargo-deny --version 0.17.0 --locked && \

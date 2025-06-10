@@ -2,9 +2,20 @@
 
 All notable changes to this project will be documented in this file.
 
+[unreleased]
+
+## [2025.06.10]
+
+### Changed
+- Bumped dev container version to 1.83.0-rev6
+
+### Added
+- Add motd warning that container has debugging tools and should not be used for production
+
 ## [2025.06.04]
 
 ### Changed
+- bump version to 1.80.0-rev5
 - 📝 Aligned changelog format with date-based git tags for consistency
 - 🐳 Enhanced runtime container with comprehensive debugging tools (curl, netcat, redis-tools, postgresql-client)
 - 📄 Updated documentation to reflect SQLx usage instead of Diesel
