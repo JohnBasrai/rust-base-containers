@@ -51,6 +51,10 @@ This project builds and publishes two containers under `ghcr.io/johnbasrai/cr8s/
 - Tagged as:  
   - `ghcr.io/johnbasrai/cr8s/rust-runtime:0.1.3`
 
+### ⚠️ Security Note:
+The rust-runtime container includes common debugging tools for development and demonstration purposes.
+Do not deploy this image to production without stripping these tools and applying hardening best practices.
+
 ---
 
 ## 🔁 Example: Using `rust-runtime` in cr8s
